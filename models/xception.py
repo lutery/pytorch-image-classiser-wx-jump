@@ -222,6 +222,6 @@ class Xception(nn.Module):
         return x
 
 def xception():
-    return Xception(MiddleFLowBlock)
+    return Xception(MiddleFLowBlock, num_class=10000)
 
 
