@@ -170,7 +170,8 @@ if __name__ == '__main__':
     #so the only way is to create a new tensorboard log
     writer = SummaryWriter(log_dir=os.path.join(
             settings.LOG_DIR, args.net, settings.TIME_NOW))
-    input_tensor = torch.Tensor(1, 3, 32, 32)
+    # 因为增加缩放图片的功能，所以这里将出入的尺寸改变32 32
+    input_tensor = torch.Tensor(1, 3, 224, 224)
     if args.gpu:
         input_tensor = input_tensor.cuda()
     writer.add_graph(net, input_tensor)

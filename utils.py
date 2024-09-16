@@ -179,8 +179,9 @@ def get_training_dataloader(mean, std, batch_size=16, num_workers=2, shuffle=Tru
     """
 
     transform_train = transforms.Compose([
+        transforms.Resize((224, 224)),
         #transforms.ToPILImage(),
-        transforms.RandomCrop(32, padding=4),
+        transforms.RandomCrop(224, padding=4),
         transforms.RandomHorizontalFlip(),
         transforms.RandomRotation(15),
         transforms.ToTensor(),
@@ -206,6 +207,7 @@ def get_test_dataloader(mean, std, batch_size=16, num_workers=2, shuffle=True):
     """
 
     transform_test = transforms.Compose([
+        transforms.Resize((224, 224)),
         transforms.ToTensor(),
         transforms.Normalize(mean, std)
     ])
