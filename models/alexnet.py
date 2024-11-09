@@ -1,18 +1,27 @@
 import torch
 import torch.nn as nn
 
+'''
+卷积的尺寸变化
+输出的size = （输入的size - kernel_size + 2 * padding) / stride + 1
+'''
+
 class AlexNet(nn.Module):
     def __init__(self, num_classes=100):
         super(AlexNet, self).__init__()
 
         self.featurs = nn.Sequential(
+            # 32 -> 7
             nn.Conv2d(3, 64, kernel_size=11, stride=4, padding=2),
             nn.ReLU(inplace=True),
             nn.LocalResponseNorm(size=5, alpha=1e-4, beta=0.75, k=2),
+            # 7->3
             nn.MaxPool2d(kernel_size=3, stride=2),
+            # 3 -> 3
             nn.Conv2d(64, 192, kernel_size=5, stride=1, padding=2),
             nn.ReLU(inplace=True),
             nn.LocalResponseNorm(size=5, alpha=1e-4, beta=0.75, k=2),
+            # 3->1 出现问题，所以图片尺寸需要大于32
             nn.MaxPool2d(kernel_size=3, stride=2),
             nn.Conv2d(192, 384, kernel_size=3, stride=1, padding=1),
             nn.ReLU(inplace=True),
